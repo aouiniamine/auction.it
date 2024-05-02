@@ -1,16 +1,18 @@
-import Image from "next/image";
+import UnAuthNav from "@/src/atoms/UnAuthNav";
 
 export default function Home() {
   return (
-    <main className="flex-box min-h-screen flex-col">
-      <nav className="flex py-6 px-20 justify-between">
-        <ul className="flex gap-20">
-          <li className="text-2xl">Auction</li>
-          <li className="text-2xl">In Auction Now</li>
-          <li className="text-2xl">About</li>
-        </ul>
-        <a className="self-end text-2xl">Log In</a>
-      </nav>
+    <main className="min-h-screen">
+      <UnAuthNav/>
+      <div className="flex justify-center items-center h-96">
+        <div className="flex w-10/12 ml-50">
+          <div className="flex flex-col flex-4 gap-6">
+            <h2 className="text-3xl">We bring you the best quality products for Auction</h2>
+            <h2 className="text-3xl">Don't miss out!!</h2>
+          </div>
+          <div className="flex-1">images</div>
+        </div>
+      </div>
     </main>
   );
 }
