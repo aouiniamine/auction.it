@@ -23,7 +23,7 @@ CREATE TABLE bids (
 	user_id INT REFERENCES users(id),
 	item_id INT REFERENCES items(id),
     price DECIMAL(10, 2),
-    created_at TIMESTAMP,
+    created_at TIMESTAMP
 );
 
 
@@ -32,7 +32,7 @@ CREATE TABLE comments (
 	user_id INT REFERENCES users(id),
 	item_id INT REFERENCES items(id),
 	comment VARCHAR ( 101 ),
-    created_at TIMESTAMP,
+    created_at TIMESTAMP
 );
 
 CREATE TABLE _admin (

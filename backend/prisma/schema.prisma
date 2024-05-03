@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model admin {
+  id       Int    @id @default(dbgenerated("nextval('_admin_id_seq'::regclass)"))
+  username String @unique @db.VarChar(101)
+  pass     String @unique @db.VarChar(101)
+
+  @@map("_admin")
+}
+
+model items {
+  id                           Int        @id @default(autoincrement())
+  user_id                      Int?
+  winner_id                    Int?
+  starting_price               Decimal?   @db.Decimal(10, 2)
+  end_bids_at                  DateTime?  @db.Timestamp(6)
+  created_at                   DateTime?  @db.Timestamp(6)
+  bids                         bids[]
+  comments                     comments[]
+  users_items_user_idTousers   users?     @relation("items_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users_items_winner_idTousers users?     @relation("items_winner_idTousers", fields: [winner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id                           Int        @id @default(autoincrement())
+  username                     String     @unique @db.VarChar(50)
+  email                        String     @unique @db.VarChar(50)
+  bids                         bids[]
+  comments                     comments[]
+  items_items_user_idTousers   items[]    @relation("items_user_idTousers")
+  items_items_winner_idTousers items[]    @relation("items_winner_idTousers")
+}
+
+model bids {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  item_id    Int?
+  price      Decimal?  @db.Decimal(10, 2)
+  created_at DateTime? @db.Timestamp(6)
+  items      items?    @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model comments {
+  id         Int       @id @default(autoincrement())
+  user_id    Int?
+  item_id    Int?
+  comment    String?   @db.VarChar(101)
+  created_at DateTime? @db.Timestamp(6)
+  items      items?    @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
