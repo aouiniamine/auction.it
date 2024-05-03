@@ -1,5 +1,5 @@
 const { PrismaClient} =  require('@prisma/client')
-const { createToken } = require('./token/jwt')
+const { createToken } = require('../utils/tokenHandler')
 const bcrypt = require("bcrypt")
 const prisma = new PrismaClient()
 
