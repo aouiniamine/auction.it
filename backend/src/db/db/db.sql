@@ -4,7 +4,7 @@ CREATE TABLE users (
     id serial PRIMARY KEY,
 	username VARCHAR ( 50 ) UNIQUE NOT NULL,
 	email VARCHAR ( 50 ) UNIQUE NOT NULL,
-    pass VARCHAR ( 50 ) NOT NULL
+    pass VARCHAR NOT NULL
 );
 
 CREATE TABLE items (
