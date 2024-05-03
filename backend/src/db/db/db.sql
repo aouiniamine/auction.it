@@ -1,5 +1,5 @@
 CREATE DATABASE auction_it;
-\l auction_it;
+\c auction_it
 CREATE TABLE users (
     id serial PRIMARY KEY,
 	username VARCHAR ( 50 ) UNIQUE NOT NULL,
