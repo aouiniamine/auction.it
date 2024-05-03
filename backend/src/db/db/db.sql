@@ -1,11 +1,10 @@
 CREATE DATABASE auction_it;
-USE auction_it;
-
+\l auction_it;
 CREATE TABLE users (
     id serial PRIMARY KEY,
 	username VARCHAR ( 50 ) UNIQUE NOT NULL,
 	email VARCHAR ( 50 ) UNIQUE NOT NULL,
-    user_pass VARCHAR ( 50 ) NOT NULL
+    pass VARCHAR ( 50 ) NOT NULL
 );
 
 CREATE TABLE items (

@@ -32,6 +32,7 @@ model users {
   id                           Int        @id @default(autoincrement())
   username                     String     @unique @db.VarChar(50)
   email                        String     @unique @db.VarChar(50)
+  pass                         String     @db.VarChar(50)
   bids                         bids[]
   comments                     comments[]
   items_items_user_idTousers   items[]    @relation("items_user_idTousers")
