@@ -1,5 +1,6 @@
 CREATE DATABASE auction_it;
-\c auction_it
+\c auction_it;
+
 CREATE TABLE users (
     id serial PRIMARY KEY,
 	username VARCHAR ( 50 ) UNIQUE NOT NULL,
@@ -7,9 +8,16 @@ CREATE TABLE users (
     pass VARCHAR NOT NULL
 );
 
+CREATE TABLE categories (
+    id serial PRIMARY KEY,
+    name VARCHAR (50) NOT NULL
+);
+
 CREATE TABLE items (
     id serial PRIMARY KEY,
 	user_id INT REFERENCES users(id),
+    title VARCHAR ( 50 ) NOT NULL,
+    category_id INT REFERENCES categories(id),
 	winner_id INT REFERENCES users(id),
     starting_price DECIMAL(10, 2),
     end_bids_at TIMESTAMP,
@@ -41,3 +49,9 @@ CREATE TABLE _admin (
 );
 
 INSERT INTO _admin (username, pass) VALUES ('admin', 'admin');
+
+INSERT INTO categories (name) VALUES 
+    ('Jewelry'),
+    ('Houses'),
+    ('Artworks'),
+    ('Clothes');
