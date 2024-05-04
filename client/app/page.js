@@ -1,4 +1,4 @@
-import UnAuthNav from "@/components/atoms/UnAuthNav";
+import UnAuthNav from "@/src/components/atoms/UnAuthNav";
 
 export default function Home() {
   return (

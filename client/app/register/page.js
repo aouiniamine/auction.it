@@ -1,23 +1,35 @@
 "use client"
 import UnAuthNav from '@/src/components/atoms/UnAuthNav'
+import { getToken, storeToken } from '@/src/utils/general'
 import { register } from '@/src/utils/userAPIs'
-import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
 export default function Register() {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState('')
+  const router = useRouter()
   async function onSubmit(e){
     e.preventDefault()
     const userData = {username, email, password} 
     try{
 
       const response = await register(userData)
-      console.log(response, userData)
+      const {token} = response
+
+      await storeToken(token)
+      router.push("/home")
+
     } catch(error){ 
       console.log(error)
     }
   }
+  useEffect(()=>{
+    const isLogged = getToken()
+    if(isLogged) router.push("/home")
+
+  }, [])
   return (
     <div className='min-h-screen'>
       <UnAuthNav/>
