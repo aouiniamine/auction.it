@@ -8,7 +8,7 @@ export default function UnAuthNav() {
             <li className="text-2xl">In Auction Now</li>
             <li className="text-2xl">About</li>
         </ul>
-        <a className="self-end text-2xl">Log In</a>
+        <a href='/login' className="self-end text-2xl">Log In</a>
     </nav>
   )
 }
