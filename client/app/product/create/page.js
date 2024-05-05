@@ -4,7 +4,6 @@ import Nav from '@/src/components/atoms/Nav'
 import DisplayImages from '@/src/components/atoms/images/DisplayImages'
 import UploadImage from '@/src/components/atoms/images/UploadImage'
 import { getAllCategories } from '@/src/utils/categoriesAPIs'
-import { Fleur_De_Leah } from 'next/font/google'
 import React, { useEffect, useRef, useState } from 'react'
 
 export default function page() {
@@ -15,11 +14,13 @@ export default function page() {
   const [endBidsAt, setEndBidsAt] = useState(null)
   const [categoriesList, setCategoriesList] = useState([])
   const [images, setImages] = useState([])
-
+  
   const selectImages = (e) => {
     const files = e.target.files
+    
     if(images.length + files.length <= 10){
-      setImages(files)
+      console.log(images.concat(files))
+      setImages(state => [...state, ...files])
 
     }
   }
@@ -47,7 +48,7 @@ export default function page() {
           <form className='flex flex-col gap-7 items-center h-full' onSubmit={submit}>
             {!images.length ? 
             <UploadImage onSelect={selectImages} />: (
-              <DisplayImages selectedImages={images} />
+              <DisplayImages selectedImages={images} addImage={selectImages}/>
             )}
              
             <div className='flex flex-row gap-20'>
@@ -60,7 +61,7 @@ export default function page() {
               ))}
             </select>
             </div>
-            <textarea rows="8" onChange={e => setAbout(e.target.value)} className='block p-2.5 w-9/12 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"' placeholder="Write your description here..."/>
+            <textarea rows="8" onChange={e => setAbout(e.target.value)} className='block p-2.5 w-11/12 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"' placeholder="Write your description here..."/>
             <button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'>Set To Auction</button>
           </form>
         </ContentWrapper>

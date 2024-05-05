@@ -1,15 +1,19 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Image from './Image'
+import AddImages from './AddImages'
 
-export default function DisplayImages({selectedImages}) {
-  return (
+export default function DisplayImages({selectedImages, addImage}) {
+  return(
     <div className='grid grid-cols-5 gap-4'>
-        {Object.values(selectedImages).map((image, i)=>{
+      { selectedImages.map((image, i)=>{
         const src = URL.createObjectURL(image)
-        return (
-          <Image imageSource={src}/>
-        )
-        })}
+        return <Image key={i} imageSource={src}/>
+      }
+      
+      )}
+      {selectedImages.length < 10  && <AddImages addImage={addImage} />}
     </div>
   )
+  
 }
