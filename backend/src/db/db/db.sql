@@ -17,9 +17,10 @@ CREATE TABLE items (
     id serial PRIMARY KEY,
 	user_id INT REFERENCES users(id),
     title VARCHAR ( 50 ) NOT NULL,
+    about VARCHAR ( 500 ) NOT NULL,
     category_id INT REFERENCES categories(id),
 	winner_id INT REFERENCES users(id),
-    starting_price DECIMAL(10, 2),
+    starting_price INT NOT NULL,
     end_bids_at TIMESTAMP,
     created_at TIMESTAMP
     

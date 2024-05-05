@@ -11,14 +11,17 @@ router.post("/save", authenticationMiddleware, async (req, res) =>{
             categoryId: category_id,
             title,
             endBidsAt: end_bids_at,
-            starting_price: starting_price
+            startingPrice: starting_price,
+            about
+
         } = body
+        const user_id = req.headers["user-id"]
 
         if (!category_id || !title || !end_bids_at || !starting_price){
             // will be improved with joi for better data format validation
             return res.status(422).send("Unprocessable Data to save the product!")
         }
-        const item = await createItem({category_id, title, end_bids_at, starting_price})
+        const item = await createItem({title, about, user_id, category_id, end_bids_at, starting_price})
         item.user_id = null
 
         res.status(201).send(item)

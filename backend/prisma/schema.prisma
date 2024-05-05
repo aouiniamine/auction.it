@@ -19,9 +19,10 @@ model items {
   id                           Int         @id @default(autoincrement())
   user_id                      Int?
   title                        String      @db.VarChar(50)
+  about                        String      @db.VarChar(500)
   category_id                  Int?
   winner_id                    Int?
-  starting_price               Decimal?    @db.Decimal(10, 2)
+  starting_price               Int
   end_bids_at                  DateTime?   @db.Timestamp(6)
   created_at                   DateTime?   @db.Timestamp(6)
   bids                         bids[]
