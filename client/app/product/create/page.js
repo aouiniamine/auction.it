@@ -34,11 +34,17 @@ export default function page() {
     fetchData()
   }, [])
 
+  const submit = async (e) =>{
+    e.preventDefault()
+    const product = {images, title, categoryId, about, startingPrice}
+    console.log(product)
+  }
+
   return (
-    <div className='h-screen'>
+    <div className='h-min-screen'>
         <Nav/>
         <ContentWrapper>
-          <form className='flex flex-col gap-7 items-center h-screen'>
+          <form className='flex flex-col gap-7 items-center h-full' onSubmit={submit}>
             {!images.length ? 
             <UploadImage onSelect={selectImages} />: (
               <DisplayImages selectedImages={images} />
@@ -54,6 +60,8 @@ export default function page() {
               ))}
             </select>
             </div>
+            <textarea rows="8" onChange={e => setAbout(e.target.value)} className='block p-2.5 w-9/12 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"' placeholder="Write your description here..."/>
+            <button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'>Set To Auction</button>
           </form>
         </ContentWrapper>
     </div>
