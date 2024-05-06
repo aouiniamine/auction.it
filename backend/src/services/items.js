@@ -3,7 +3,9 @@ const prisma = new PrismaClient()
 
 const createItem = async (item) =>{
     const created_at = new Date()
-    return await prisma.items.create({...item, created_at})
+    return await prisma.items.create({
+        data: {...item, created_at}
+    })
 }
 
 const getItemById = async (id) => {
