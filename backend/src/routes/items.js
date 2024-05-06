@@ -2,7 +2,7 @@ const express = require("express");
 const { authenticationMiddleware } = require("../middlewares/auth");
 const {createItem} = require("../services/items");
 const upload = require("../middlewares/files");
-const { mvFilesToTheirFolder } = require("../services/files");
+const { mvFilesToTheirFolder, folders } = require("../services/files");
 const router = express.Router()
 
 router.post("/save", authenticationMiddleware, upload.array("images"), async (req, res) =>{
@@ -28,8 +28,9 @@ router.post("/save", authenticationMiddleware, upload.array("images"), async (re
         }
         const itemToSave = {title, about, user_id: req.user.id, category_id: Number(category_id), end_bids_at: endBidsAt, starting_price: Number(starting_price)}
         const item = await createItem(itemToSave)
-        
-        await mvFilesToTheirFolder(req.files, "/products/"+item.id)
+        const imagesDest = `${folders.names.products}/${item.id}`
+        console.log(imagesDest)
+        await mvFilesToTheirFolder(req.files, imagesDest)
         
         res.status(201).send({item: itemToSave})
 
