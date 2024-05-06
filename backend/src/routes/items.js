@@ -1,34 +1,40 @@
 const express = require("express");
 const { authenticationMiddleware } = require("../middlewares/auth");
-const { createItem } = require("../services/items");
-const upload = require("../middlewares/images");
+const {createItem} = require("../services/items");
+const upload = require("../middlewares/files");
+const { mvFilesToTheirFolder } = require("../services/files");
 const router = express.Router()
 
 router.post("/save", authenticationMiddleware, upload.array("images"), async (req, res) =>{
     
     try{
+        // set data
         const body = req.body
-        const {
-            categoryId: category_id,
+        let {
+            category_id,
             title,
-            endBidsAt: end_bids_at,
-            startingPrice: starting_price,
+            end_bids_at,
+            starting_price,
             about
 
         } = body
-        const user_id = req.headers["user-id"]
+        const endBidsAt = new Date(end_bids_at)
+        endBidsAt.setHours(17)
+        endBidsAt.setMinutes(0)
+        endBidsAt.setSeconds(0)
+        if (!category_id || !title || !end_bids_at || !starting_price){
+            // will be improved with joi for better data format validation
+            return res.status(422).send("Unprocessable Data to save the product!")
+        }
+        const itemToSave = {title, about, user_id: req.user.id, category_id: Number(category_id), end_bids_at: endBidsAt, starting_price: Number(starting_price)}
+        const item = await createItem(itemToSave)
+        
+        await mvFilesToTheirFolder(req.files, "/products/"+item.id)
+        
+        res.status(201).send({item: itemToSave})
 
-        console.log(req.files)
-
-        // if (!category_id || !title || !end_bids_at || !starting_price){
-        //     // will be improved with joi for better data format validation
-        //     return res.status(422).send("Unprocessable Data to save the product!")
-        // }
-        // const item = await createItem({title, about, user_id, category_id, end_bids_at, starting_price})
-        // item.user_id = null
-
-        res.status(201).send({})
     }catch(error){
+        console.log(error)
         res.status(500).send({error: "500 Internal Server Error!!", status: 500})
     }
 
