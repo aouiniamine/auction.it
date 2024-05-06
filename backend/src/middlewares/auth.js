@@ -4,8 +4,8 @@ async function authenticationMiddleware(req, res, next){
     const token = req.header('authorization')
     try{
         // extract user id from token and set it to request header
-        const isVerified =  await verifyToken(token)
-        req.headers["user-id"] = isVerified.id
+        const {id} =  await verifyToken(token)
+        req.user = {id}
 
         next()
 
