@@ -39,7 +39,6 @@ router.post("/save", authenticationMiddleware, upload.array("images"), async (re
         res.status(500).send({error: "500 Internal Server Error!!", status: 500})
     }
 
-    
 })
 
 module.exports = router

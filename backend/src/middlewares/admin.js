@@ -1,7 +1,12 @@
 const { verifyToken, isSessionExpired } = require("../utils/admin")
 
 async function adminAuthMiddleware(req, res, next){
+
+    // if user users the same route go to next middleware
     const token = req.header('admin_authorization')
+    const userToken = req.header('authorization')
+    if(!token && (req.user || userToken) ){ return next() }
+
     try{
         
         const verifiedAdmin =  await verifyToken(token)
@@ -12,7 +17,7 @@ async function adminAuthMiddleware(req, res, next){
             res.status(440).send({error: "440 - Session Has Expired", status: 440})
             return
         }
-        
+
         req.isAdmin = {id}
         next()
 
