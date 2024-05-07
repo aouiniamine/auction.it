@@ -22,6 +22,7 @@ model items {
   about                        String      @db.VarChar(500)
   category_id                  Int?
   winner_id                    Int?
+  approved                     Boolean     @default(false)
   starting_price               Int
   end_bids_at                  DateTime?   @db.Timestamp(6)
   created_at                   DateTime?   @db.Timestamp(6)
