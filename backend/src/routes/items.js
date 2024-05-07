@@ -26,10 +26,10 @@ router.post("/save", authenticationMiddleware, upload.array("images"), async (re
             // will be improved with joi for better data format validation
             return res.status(422).send("Unprocessable Data to save the product!")
         }
-        const itemToSave = {title, about, user_id: req.user.id, category_id: Number(category_id), end_bids_at: endBidsAt, starting_price: Number(starting_price)}
-        const item = await createItem(itemToSave)
+        let itemToSave = {title, about, category_id: Number(category_id), end_bids_at: endBidsAt, starting_price: Number(starting_price)}
+        const item = await createItem({...itemToSave, user_id: req.user.id})
+        
         const imagesDest = `${folders.names.products}/${item.id}`
-        console.log(imagesDest)
         await mvFilesToTheirFolder(req.files, imagesDest)
         
         res.status(201).send({item: itemToSave})

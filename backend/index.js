@@ -7,6 +7,8 @@ const {urlencoded, json} = require("body-parser")
 const usersRouter = require("./src/routes/users")
 const itemsRouter = require("./src/routes/items")
 const categoriesRouter = require("./src/routes/categories")
+const adminRouter = require("./src/routes/admin")
+
 const { initFolders } = require("./src/services/files")
 
 // parse incoming data
@@ -20,7 +22,9 @@ app.use(cors())
 app.use("/api/user", usersRouter)
 app.use("/api/items", itemsRouter)
 app.use("/api/categories", categoriesRouter)
+app.use("/api/admin", adminRouter)
 
+// init folder to prevent errors
 initFolders()
 
 app.listen(process.env.PORT, ()=>console.log("Server is runing on:", process.env.PORT))
