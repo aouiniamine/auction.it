@@ -5,13 +5,14 @@ import DisplayImages from '@/src/components/atoms/images/DisplayImages'
 import UploadImage from '@/src/components/atoms/images/UploadImage'
 import { getAllCategories } from '@/src/utils/categoriesAPIs'
 import { addProductToAuction } from '@/src/utils/itemsAPIs'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const currDate =  new Date().toISOString().split("T")[0]
 export default function page() {
   const [categoriesList, setCategoriesList] = useState([])
   const [images, setImages] = useState([])
-  
+  const router = useRouter()
   const selectImages = (e) => {
     const files = e.target.files
     
@@ -40,6 +41,8 @@ export default function page() {
       images.forEach((image)=>formData.append("images", image))
       
       const addedProduct = await addProductToAuction(formData)
+      console.log(addedProduct)
+      router.push("/product/saved")
     } catch(error){
       console.log(error)
     }
