@@ -1,8 +1,9 @@
 const express = require("express");
 const { authenticationMiddleware } = require("../middlewares/auth");
-const {createItem} = require("../services/items");
+const {createItem, getAllPendingItems, setItemToApproved, setItemToRefused} = require("../services/items");
 const upload = require("../middlewares/files");
-const { mvFilesToTheirFolder, folders } = require("../services/files");
+const { mvFilesToTheirFolder, folders, getItemImages } = require("../services/files");
+const { adminAuthMiddleware } = require("../middlewares/admin");
 const router = express.Router()
 
 router.post("/save", authenticationMiddleware, upload.array("images"), async (req, res) =>{
@@ -39,6 +40,39 @@ router.post("/save", authenticationMiddleware, upload.array("images"), async (re
         res.status(500).send({error: "500 Internal Server Error!!", status: 500})
     }
 
+})
+
+router.get("/get/pending", adminAuthMiddleware, async (req, res) => {
+    try{
+
+        const allPendingItems = await getItemImages(await getAllPendingItems())
+        res.status(200).send({items: allPendingItems})
+    }catch(error){
+        console.log(error)
+        res.status(500).send({error: "500 Internal Server Error!!", status: 500})
+    }
+})
+
+router.put("/:id/approved", adminAuthMiddleware, async (req, res) => {
+    const { id } = req.params
+    try {
+        const approvedItem = await setItemToApproved(id)
+        res.status(200).send({approvedItem, status: 200})
+    } catch (error){
+        console.log(error)
+        res.status(500).send({error: "500 Internal Server Error!!", status: 500})
+    }
+})
+
+router.put("/:id/refused", adminAuthMiddleware, async (req, res) => {
+    const { id } = req.params
+    try {
+        const refusedItem = await setItemToRefused(id)
+        res.status(200).send({refusedItem, status: 200})
+    } catch (error){
+        console.log(error)
+        res.status(500).send({error: "500 Internal Server Error!!", status: 500})
+    }
 })
 
 module.exports = router
