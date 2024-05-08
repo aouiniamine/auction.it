@@ -52,7 +52,7 @@ const setItemToApproved = async (id) => {
             state: itemState.approved
         },
         where: {
-            id
+            id: Number(id)
         }
     })
 }
@@ -62,7 +62,7 @@ const setItemToRefused = async (id) => {
             state: itemState.refused
         },
         where: {
-            id
+            id: Number(id)
         }
     })
 }

@@ -53,7 +53,7 @@ router.get("/get/pending", adminAuthMiddleware, async (req, res) => {
     }
 })
 
-router.put("/:id/approved", adminAuthMiddleware, async (req, res) => {
+router.put("/:id/approve", adminAuthMiddleware, async (req, res) => {
     const { id } = req.params
     try {
         const approvedItem = await setItemToApproved(id)
@@ -64,7 +64,7 @@ router.put("/:id/approved", adminAuthMiddleware, async (req, res) => {
     }
 })
 
-router.put("/:id/refused", adminAuthMiddleware, async (req, res) => {
+router.put("/:id/refuse", adminAuthMiddleware, async (req, res) => {
     const { id } = req.params
     try {
         const refusedItem = await setItemToRefused(id)
