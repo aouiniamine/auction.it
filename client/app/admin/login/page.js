@@ -1,5 +1,6 @@
 "use client"
 import { loginAdmin } from '@/src/utils/adminAPIs'
+import { getTokenAdmin } from '@/src/utils/general'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
@@ -12,10 +13,16 @@ export default function Login() {
     try{
       const authData = {username, password}
       const response = await loginAdmin(authData)
-      console.log(response)
+      
+      router.push("/admin/products/pending")
     } catch(err) {console.log(err)}
 
   }
+  useEffect(()=>{
+    if(getTokenAdmin()){
+      router.push("/admin/products/pending")
+    }
+  }, [])
   
   return (
     <div className='min-h-screen'>
