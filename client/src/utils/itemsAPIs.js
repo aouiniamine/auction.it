@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "./general";
+import { getToken, getTokenAdmin, removeTokenAdmin } from "./general";
 
 export const addProductToAuction = (data) => 
     axios.post("/api/items/save", data, {
@@ -9,3 +9,12 @@ export const addProductToAuction = (data) =>
 
         },
     })
+
+export const getPendingItems = () => 
+    axios.get('/api/items/get/pending', {
+        headers: {
+            admin_authorization: getTokenAdmin()
+        }
+    }).then(res => res.data)
+
+

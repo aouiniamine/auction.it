@@ -8,3 +8,5 @@ export const removeToken = () => localStorage.removeItem(tokenKey)
 export const storeTokenAdmin = (token) => localStorage.setItem(tokenKeyAdmin, token)
 export const getTokenAdmin = () => localStorage.getItem(tokenKeyAdmin)
 export const removeTokenAdmin = () => localStorage.removeItem(tokenKeyAdmin)
+
+export const getImageSRC = (productId, image) => `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/file/products/${productId}/${image}`

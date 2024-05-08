@@ -24,7 +24,7 @@ app.use("/api/user", usersRouter)
 app.use("/api/items", itemsRouter)
 app.use("/api/categories", categoriesRouter)
 app.use("/api/admin", adminRouter)
-app.use("/file", filesRouter)
+app.use("/api/file", filesRouter)
 
 // init folder to prevent errors
 initFolders()
