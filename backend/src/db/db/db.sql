@@ -20,7 +20,7 @@ CREATE TABLE items (
     about VARCHAR ( 500 ) NOT NULL,
     category_id INT REFERENCES categories(id),
 	winner_id INT REFERENCES users(id),
-    approved BOOLEAN NOT NULL DEFAULT 'false',
+    _state VARCHAR ( 25 ) NOT NULL DEFAULT 'pending',
     starting_price INT NOT NULL,
     end_bids_at TIMESTAMP,
     created_at TIMESTAMP

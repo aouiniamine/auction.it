@@ -5,7 +5,7 @@ const { adminAuthMiddleware } = require("../middlewares/admin");
 const router = express.Router()
 
 
-router.get("/get/all", adminAuthMiddleware, authenticationMiddleware, async (req, res) =>{
+router.get("/get/all", authenticationMiddleware, adminAuthMiddleware, async (req, res) =>{
     try {
         const categories = await getAllCategories()
         res.status(200).send({categories})
@@ -16,7 +16,7 @@ router.get("/get/all", adminAuthMiddleware, authenticationMiddleware, async (req
 
 })
 
-router.get("/get/:id", adminAuthMiddleware, authenticationMiddleware, async (req, res) => {
+router.get("/get/:id", authenticationMiddleware, adminAuthMiddleware, async (req, res) => {
     try {
 
         const {id} = req.params

@@ -2,13 +2,11 @@ const { verifyToken, isSessionExpired } = require("../utils/admin")
 
 async function adminAuthMiddleware(req, res, next){
 
-    // if user users the same route go to next middleware
+    // if user uses the same route go to next middleware
     const token = req.header('admin_authorization')
-    const userToken = req.header('authorization')
-    if(!token && (req.user || userToken) ){ return next() }
+    if(!token && req.user){ return next() }
 
     try{
-        
         const verifiedAdmin =  await verifyToken(token)
         const {createdAt, id} = verifiedAdmin
 

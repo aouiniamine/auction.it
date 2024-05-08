@@ -22,7 +22,7 @@ model items {
   about                        String      @db.VarChar(500)
   category_id                  Int?
   winner_id                    Int?
-  approved                     Boolean     @default(false)
+  state                        String      @default("pending") @map("_state") @db.VarChar(25)
   starting_price               Int
   end_bids_at                  DateTime?   @db.Timestamp(6)
   created_at                   DateTime?   @db.Timestamp(6)
