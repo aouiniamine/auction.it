@@ -1,15 +1,28 @@
 "use client"
-import React, { useState } from 'react'
+import { approveItem, refuseItem } from '@/src/utils/itemsAPIs'
+import React, { useEffect, useState } from 'react'
 
 export default function OptionsDropdown({itemId, rmItem, index}) {
     const [isOpen, setIsOpen] = useState(false)
-    const toggleDropdown = () => setIsOpen(prevState => !prevState)
+    const toggleDropdown = () => {
+        setIsOpen(prevState => !prevState)
+    }
     const removeItem = () => {rmItem(index), setIsOpen(false)}
     const approve = async () =>{
-        removeItem()
+        try{
+            const approvedItem = await approveItem(itemId)
+            // removeItem()
+        } catch(err){
+            console.log(err)
+        }
     }
     const refuse = async() =>{
-        removeItem()
+        try{
+            const refusedItem = await refuseItem(itemId)
+            // removeItem()
+        } catch(err){
+            console.log(err)
+        }
     }
     return (
     <div className='absolute z-50'>

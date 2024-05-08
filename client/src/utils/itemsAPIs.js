@@ -18,3 +18,20 @@ export const getPendingItems = () =>
     }).then(res => res.data)
 
 
+export const refuseItem = (id) =>{
+    const adminToken = getTokenAdmin()
+    return axios.put("/api/items/"+id+"/refuse", {}, {
+        headers: {
+            admin_authorization: adminToken
+        }
+    }).then(res => res.data)
+}
+
+export const approveItem = (id) => {
+    const adminToken = getTokenAdmin()
+    return axios.put("/api/items/"+id+"/approve", {}, {
+        headers: {
+            admin_authorization: getTokenAdmin()
+        }
+    }).then(res => res.data)
+}
