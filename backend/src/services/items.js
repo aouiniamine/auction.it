@@ -1,6 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient()
 
+const itemState = {
+    pending: 'pending',
+    refused: 'refused',
+    approved: 'approved'
+
+}
 const createItem = async (item) =>{
     const created_at = new Date()
     return await prisma.items.create({
@@ -32,6 +38,35 @@ const getItemsByCategoryId = async (category_id) => {
     })
 }
 
+const getAllPendingItems = async () =>{
+    return await prisma.items.findMany({
+        where: {
+            state: itemState.pending
+        }
+    })
+}
+
+const setItemToApproved = async (id) => {
+    return await prisma.items.update({
+        data: {
+            state: itemState.approved
+        },
+        where: {
+            id
+        }
+    })
+}
+const setItemToRefused = async (id) => {
+    return await prisma.items.update({
+        data: {
+            state: itemState.refused
+        },
+        where: {
+            id
+        }
+    })
+}
+
 const updateItemById = async (id, data) => {
     return await prisma.items.update({
         where: {
@@ -49,4 +84,4 @@ const deleteItemById = async (id) =>{
     })
 }
 
-module.exports = {createItem, getItemById, getItemsByCategoryId, getItemsByUserId, deleteItemById, updateItemById}
+module.exports = {setItemToApproved, setItemToRefused, createItem, getItemById, getItemsByCategoryId, getAllPendingItems, getItemsByUserId, deleteItemById, updateItemById}

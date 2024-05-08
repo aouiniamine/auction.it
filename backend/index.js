@@ -8,6 +8,7 @@ const usersRouter = require("./src/routes/users")
 const itemsRouter = require("./src/routes/items")
 const categoriesRouter = require("./src/routes/categories")
 const adminRouter = require("./src/routes/admin")
+const filesRouter = require("./src/routes/files")
 
 const { initFolders } = require("./src/services/files")
 
@@ -23,6 +24,7 @@ app.use("/api/user", usersRouter)
 app.use("/api/items", itemsRouter)
 app.use("/api/categories", categoriesRouter)
 app.use("/api/admin", adminRouter)
+app.use("/file", filesRouter)
 
 // init folder to prevent errors
 initFolders()
