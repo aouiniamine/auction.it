@@ -41,4 +41,22 @@ const initFolders = () =>{
     
 }
 
-module.exports = {folders, initFolders, mvFilesToTheirFolder}
+const getItemImages = async (items) =>{
+    return await Promise.all(items.map(async(item) =>{
+        
+        const itemDirPath = path.join(folders.paths.products, item?.id.toString())
+        const images = fs.readdirSync(itemDirPath, async function(err) {
+            if(err) { throw err }
+        })
+        item.images = images
+        return item
+    }))
+}
+
+const getFileStream = (p) => {
+    const filePath = path.join(folders.paths.uploads, p)
+   return fs.createReadStream(filePath) 
+
+}
+  
+module.exports = {folders, initFolders, mvFilesToTheirFolder, getItemImages, getFileStream}
