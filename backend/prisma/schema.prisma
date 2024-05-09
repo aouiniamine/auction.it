@@ -29,8 +29,8 @@ model items {
   bids                         bids[]
   comments                     comments[]
   categories                   categories? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users_items_user_idTousers   users?      @relation("items_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users_items_winner_idTousers users?      @relation("items_winner_idTousers", fields: [winner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user_item   users?      @relation("user_item", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  winner_item users?      @relation("winner_item", fields: [winner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {
@@ -40,8 +40,8 @@ model users {
   pass                         String     @db.VarChar
   bids                         bids[]
   comments                     comments[]
-  items_items_user_idTousers   items[]    @relation("items_user_idTousers")
-  items_items_winner_idTousers items[]    @relation("items_winner_idTousers")
+  items   items[]    @relation("user_item")
+  itemsWon items[]    @relation("winner_item")
 }
 
 model bids {
