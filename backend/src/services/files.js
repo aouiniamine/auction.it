@@ -55,7 +55,9 @@ const getItemImages = async (items) =>{
 
 const getFileStream = (p) => {
     const filePath = path.join(folders.paths.uploads, p)
-   return fs.createReadStream(filePath) 
+    const exists = fs.existsSync(filePath)
+    if(!exists) return null
+    return fs.createReadStream(filePath) 
 
 }
 
