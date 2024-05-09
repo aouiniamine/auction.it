@@ -35,3 +35,10 @@ export const approveItem = (id) => {
         }
     }).then(res => res.data)
 }
+
+export const deleteItem = (id) =>
+    axios.delete("/api/items/"+id, {
+        headers: {
+            admin_authorization: getTokenAdmin()
+        }
+    }).then(res => res.data)

@@ -1,5 +1,5 @@
 "use client"
-import { approveItem, refuseItem } from '@/src/utils/itemsAPIs'
+import { approveItem, deleteItem, refuseItem } from '@/src/utils/itemsAPIs'
 import React, { useEffect, useState } from 'react'
 
 export default function OptionsDropdown({itemId, rmItem, index}) {
@@ -11,7 +11,7 @@ export default function OptionsDropdown({itemId, rmItem, index}) {
     const approve = async () =>{
         try{
             const approvedItem = await approveItem(itemId)
-            // removeItem()
+            removeItem()
         } catch(err){
             console.log(err)
         }
@@ -19,7 +19,16 @@ export default function OptionsDropdown({itemId, rmItem, index}) {
     const refuse = async() =>{
         try{
             const refusedItem = await refuseItem(itemId)
-            // removeItem()
+            removeItem()
+        } catch(err){
+            console.log(err)
+        }
+    }
+    const itemDelete = async () =>{
+        try{
+            const deltedItem = await deleteItem(itemId)
+            removeItem()
+
         } catch(err){
             console.log(err)
         }
@@ -44,7 +53,7 @@ export default function OptionsDropdown({itemId, rmItem, index}) {
                     <button className="block px-4 py-2 hover:bg-amber-200 dark:hover:bg-gray-600 dark:hover:text-white w-full" onClick={refuse}>Refuse</button>
                 </li>
                 <li>
-                    <button className="block px-4 py-2 hover:bg-red-300 dark:hover:bg-gray-600 dark:hover:text-white w-full">Delete</button>
+                    <button className="block px-4 py-2 hover:bg-red-300 dark:hover:bg-gray-600 dark:hover:text-white w-full" onClick={itemDelete}>Delete</button>
                 </li>
                 
                 </ul>
