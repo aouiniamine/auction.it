@@ -17,7 +17,16 @@ const createItem = async (item) =>{
 const getItemById = async (id) => {
     return await prisma.items.findUnique({
         where: {
-            id
+            id: Number(id)
+        },
+        include: {
+            user_item: {
+                select: {
+                    username: true,
+                    email: true
+                }
+            
+            }
         }
     })
 }

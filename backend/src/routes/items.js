@@ -1,6 +1,6 @@
 const express = require("express");
 const { authenticationMiddleware } = require("../middlewares/auth");
-const {createItem, getAllPendingItems, setItemToApproved, setItemToRefused, deleteItemById} = require("../services/items");
+const {createItem, getAllPendingItems, setItemToApproved, setItemToRefused, deleteItemById, getItemById} = require("../services/items");
 const upload = require("../middlewares/files");
 const { mvFilesToTheirFolder, folders, getItemImages, deleteItemFolder } = require("../services/files");
 const { adminAuthMiddleware } = require("../middlewares/admin");
@@ -51,6 +51,20 @@ router.get("/get/pending", adminAuthMiddleware, async (req, res) => {
         console.log(error)
         res.status(500).send({error: "500 Internal Server Error!!", status: 500})
     }
+})
+
+router.get("/:id", authenticationMiddleware, adminAuthMiddleware, async (req, res) => {
+    const {id} = req.params;
+    try{
+        console.log(id)
+
+        const [item] = await getItemImages([await getItemById(id)])
+        res.status(200).send({item, status: 200})
+    } catch(err){
+        console.log(err)
+        res.status(500).send({error: "500 Internal Server Error!!", status: 500})
+    }
+
 })
 
 router.put("/:id/approve", adminAuthMiddleware, async (req, res) => {
