@@ -58,5 +58,10 @@ const getFileStream = (p) => {
    return fs.createReadStream(filePath) 
 
 }
+
+const deleteItemFolder = async (id) =>{
+    const itemFolder = path.join(folders.paths.products, id.toString())
+    await fs.rm(itemFolder, {force: true, recursive: true}, (err)=> {if(err){ throw err }})
+}
   
-module.exports = {folders, initFolders, mvFilesToTheirFolder, getItemImages, getFileStream}
+module.exports = {folders, initFolders, mvFilesToTheirFolder, getItemImages, getFileStream, deleteItemFolder}

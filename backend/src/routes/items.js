@@ -1,8 +1,8 @@
 const express = require("express");
 const { authenticationMiddleware } = require("../middlewares/auth");
-const {createItem, getAllPendingItems, setItemToApproved, setItemToRefused} = require("../services/items");
+const {createItem, getAllPendingItems, setItemToApproved, setItemToRefused, deleteItemById} = require("../services/items");
 const upload = require("../middlewares/files");
-const { mvFilesToTheirFolder, folders, getItemImages } = require("../services/files");
+const { mvFilesToTheirFolder, folders, getItemImages, deleteItemFolder } = require("../services/files");
 const { adminAuthMiddleware } = require("../middlewares/admin");
 const router = express.Router()
 
@@ -69,6 +69,19 @@ router.put("/:id/refuse", adminAuthMiddleware, async (req, res) => {
     try {
         const refusedItem = await setItemToRefused(id)
         res.status(200).send({refusedItem, status: 200})
+    } catch (error){
+        console.log(error)
+        res.status(500).send({error: "500 Internal Server Error!!", status: 500})
+    }
+})
+
+router.delete("/:id", adminAuthMiddleware, async (req, res) => {
+    const { id } = req.params
+    try {
+        await deleteItemFolder(id)
+        const deltedItem = await deleteItemById(id)
+        
+        res.status(200).send({deltedItem, status: 200})
     } catch (error){
         console.log(error)
         res.status(500).send({error: "500 Internal Server Error!!", status: 500})

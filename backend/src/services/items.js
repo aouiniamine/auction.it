@@ -79,7 +79,7 @@ const updateItemById = async (id, data) => {
 const deleteItemById = async (id) =>{
     return await prisma.items.delete({
         where: {
-            id
+            id: Number(id)
         }
     })
 }
