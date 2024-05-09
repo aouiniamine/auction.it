@@ -42,3 +42,15 @@ export const deleteItem = (id) =>
             admin_authorization: getTokenAdmin()
         }
     }).then(res => res.data)
+
+export const getItemByIdAsAdmin = (id) => 
+    axios.get("/api/items/"+id, {
+        headers: {
+            admin_authorization: getTokenAdmin()
+        }
+    }).then(res => res.data)
+
+export const getItemById = (id) => 
+    axios.get("/api/items/"+id, {
+        authorization: getToken(),
+    }).then(res => res.data)
