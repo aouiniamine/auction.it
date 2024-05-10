@@ -28,16 +28,12 @@ const mvFilesToTheirFolder = async (files, dest) =>{
 }
 
 const initFolders = () =>{
-    fs.readdir(folders.paths.root, (err, files)=>{
-        if(err){ throw err }
-        // if uploads folders exists close
-        const exists = files.find(e => e === "uploads")
-        if(exists) return
+    const exists = fs.existsSync(folders.paths.uploads)
+    if(exists) return
 
-        // else create needed folders
-        fs.mkdir(folders.paths.uploads, (err) => {if(err){throw err}})
-        fs.mkdir(folders.paths.products, (err) => {if(err){throw err}})
-    })
+    // else create needed folders
+    fs.mkdir(folders.paths.uploads, (err) => {if(err){throw err}})
+    fs.mkdir(folders.paths.products, (err) => {if(err){throw err}})
     
 }
 

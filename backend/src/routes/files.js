@@ -2,9 +2,6 @@ const router = require("express").Router()
 const fs = require('fs')
 const path = require("path")
 const { getFileStream } = require("../services/files")
-const mime = require('mime-types')
-const { start } = require("repl")
-const { error } = require("console")
 
 router.get("/:entry/:id/:file", async (req, res) => {
     const {entry, id, file} = req.params

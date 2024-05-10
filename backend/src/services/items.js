@@ -34,7 +34,16 @@ const getItemById = async (id) => {
 const getItemsByUserId = async (user_id) => {
     return await prisma.items.findMany({
         where: {
-            user_id
+            user_id: Number(user_id)
+        }
+    })
+}
+
+const getPendingItemsByUserId = async (user_id) => {
+    return await prisma.items.findMany({
+        where: {
+            user_id: Number(user_id),
+            state: itemState.pending
         }
     })
 }
@@ -93,4 +102,4 @@ const deleteItemById = async (id) =>{
     })
 }
 
-module.exports = {setItemToApproved, setItemToRefused, createItem, getItemById, getItemsByCategoryId, getAllPendingItems, getItemsByUserId, deleteItemById, updateItemById}
+module.exports = {getPendingItemsByUserId, setItemToApproved, setItemToRefused, createItem, getItemById, getItemsByCategoryId, getAllPendingItems, getItemsByUserId, deleteItemById, updateItemById}
