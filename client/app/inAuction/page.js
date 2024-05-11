@@ -18,6 +18,7 @@ export default async function Home() {
 
                 <Image imageSource={getImageSRC(item.id, item.images[0])}/>
                 <p className='text-lg'>{item.title}</p>
+                <p className='text-sm'>{item.starting_price} TND</p>
                 <p className='text-sm truncate'>{item.about}</p>
               </a>
             </article>

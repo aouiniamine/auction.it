@@ -19,7 +19,7 @@ export default function Register() {
       const {token} = response
 
       await storeToken(token)
-      router.push("/home")
+      router.push("/inAuction")
 
     } catch(error){ 
       console.log(error)

@@ -81,8 +81,8 @@ router.get("/mine/pending", authenticationMiddleware, async (req, res) => {
 router.get("/now/auction", async (req, res) => {
     try {
         const items = await getItemImages(await getInAuctionItems())
-        console.log(items)
         res.status(200).send({items, status: 200})
+        
     } catch(err){
         console.log(err)
         res.status(500).send({error: "500 Internal Server Error!!", status: 500})
