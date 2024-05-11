@@ -53,7 +53,7 @@ router.get("/get/pending", adminAuthMiddleware, async (req, res) => {
     }
 })
 
-router.get("/:id", authenticationMiddleware, adminAuthMiddleware, async (req, res) => {
+router.get("/:id", async (req, res) => {
     const {id} = req.params;
     try{
         const [item] = await getItemImages([await getItemById(id)])
@@ -82,7 +82,7 @@ router.get("/now/auction", async (req, res) => {
     try {
         const items = await getItemImages(await getInAuctionItems())
         res.status(200).send({items, status: 200})
-        
+
     } catch(err){
         console.log(err)
         res.status(500).send({error: "500 Internal Server Error!!", status: 500})

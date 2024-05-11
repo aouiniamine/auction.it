@@ -26,7 +26,9 @@ const getItemById = async (id) => {
                     email: true
                 }
             
-            }
+            },
+            bids: true,
+            comments: true
         }
     })
 }
