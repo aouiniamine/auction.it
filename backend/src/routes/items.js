@@ -1,6 +1,6 @@
 const express = require("express");
 const { authenticationMiddleware } = require("../middlewares/auth");
-const {createItem, getAllPendingItems, setItemToApproved, setItemToRefused, deleteItemById, getItemById, getPendingItemsByUserId} = require("../services/items");
+const {createItem, getAllPendingItems, setItemToApproved, setItemToRefused, deleteItemById, getItemById, getPendingItemsByUserId, getInAuctionItems} = require("../services/items");
 const upload = require("../middlewares/files");
 const { mvFilesToTheirFolder, folders, getItemImages, deleteItemFolder } = require("../services/files");
 const { adminAuthMiddleware } = require("../middlewares/admin");
@@ -72,6 +72,17 @@ router.get("/mine/pending", authenticationMiddleware, async (req, res) => {
         const items = await getItemImages(await getPendingItemsByUserId(id))
         res.status(200).send({items, status: 200})
 
+    } catch(err){
+        console.log(err)
+        res.status(500).send({error: "500 Internal Server Error!!", status: 500})
+    }
+})
+
+router.get("/now/auction", async (req, res) => {
+    try {
+        const items = await getItemImages(await getInAuctionItems())
+        console.log(items)
+        res.status(200).send({items, status: 200})
     } catch(err){
         console.log(err)
         res.status(500).send({error: "500 Internal Server Error!!", status: 500})

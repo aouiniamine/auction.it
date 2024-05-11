@@ -102,4 +102,32 @@ const deleteItemById = async (id) =>{
     })
 }
 
-module.exports = {getPendingItemsByUserId, setItemToApproved, setItemToRefused, createItem, getItemById, getItemsByCategoryId, getAllPendingItems, getItemsByUserId, deleteItemById, updateItemById}
+const getInAuctionItems = async () => {
+    return await prisma.items.findMany({
+        where: {
+            state: itemState.approved,
+            AND: {
+                end_bids_at: {
+                    gte: new Date()
+                }
+            }
+        }
+    })
+}
+
+module.exports = {
+    createItem,
+
+    getInAuctionItems,
+    getPendingItemsByUserId,
+    getItemById,
+    getItemsByCategoryId,
+    getAllPendingItems,
+    getItemsByUserId,
+    
+    setItemToApproved,
+    setItemToRefused,
+    updateItemById,
+    
+    deleteItemById,
+}
