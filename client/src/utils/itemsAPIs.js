@@ -17,6 +17,17 @@ export const getPendingItems = () =>
         }
     }).then(res => res.data)
 
+export const getInAuction = async () =>{
+    try {
+        
+        const res = await axios.get(process.env.NEXT_PUBLIC_BACKEND_URL+"/api/items/now/auction")
+        const {items} = res.data
+        return items
+    }catch(err){
+        console.log(err)
+        return []
+    }
+}
 
 export const refuseItem = (id) =>{
     const adminToken = getTokenAdmin()
