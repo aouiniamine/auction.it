@@ -13,7 +13,7 @@ export default async function Home() {
       <ContentWrapper>
         <div className='grid grid-cols-3 justify-items-center'>
           {items.map((item, i)=>(
-            <article className='mt-3 w-64 p-5'>
+            <article className='mt-3 w-64 p-5' key={i}>
               <a href={"/product/"+item.id}>
 
                 <Image imageSource={getImageSRC(item.id, item.images[0])}/>

@@ -8,7 +8,7 @@ export default function Nav() {
     const router = useRouter()
     const logOut = () => {
         removeToken()
-        router.replace("/login")
+         router.replace("/login")
     }
     return (
         <nav className="flex py-3 px-20 justify-between shadow-xl bg-slate-100">

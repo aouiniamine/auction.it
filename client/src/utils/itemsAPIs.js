@@ -62,6 +62,4 @@ export const getItemByIdAsAdmin = (id) =>
     }).then(res => res.data)
 
 export const getItemById = (id) => 
-    axios.get("/api/items/"+id, {
-        authorization: getToken(),
-    }).then(res => res.data)
+    axios.get(process.env.NEXT_PUBLIC_BACKEND_URL+"/api/items/"+id).then(res => res.data)
