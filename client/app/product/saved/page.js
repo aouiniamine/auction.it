@@ -1,3 +1,4 @@
+import CheckLogged from '@/src/components/atoms/CheckLogged'
 import ContentWrapper from '@/src/components/atoms/ContentWrapper'
 import Nav from '@/src/components/atoms/Nav'
 import CenterWrapper from '@/src/components/atoms/images/CenterWrapper'
@@ -13,6 +14,7 @@ export default function Saved() {
                 <h2 className='text-xl text-teal-600 font-semibold leading-relaxed'>Our moderator will contact you to sign our contract!!</h2>
             </div>
         </CenterWrapper>
+        <CheckLogged />
     </>
   )
 }

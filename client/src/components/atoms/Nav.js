@@ -10,13 +10,6 @@ export default function Nav() {
         removeToken()
         router.replace("/")
     }
-    useEffect(()=>{
-        async function checkLogged() {
-            const token = await getToken()
-            if(!token) router.replace("/")
-        }
-        checkLogged()
-    }, [])
     return (
         <nav className="flex py-3 px-20 justify-between shadow-xl bg-slate-100">
             <ul className="flex gap-20">
