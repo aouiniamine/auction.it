@@ -17,7 +17,7 @@ export default function ProductHeadContent({id, images}) {
         commentsRef.current.scrollTop = commentsRef.current.scrollHeight
 
       }, 150)
-    }, [])
+    }, [allComments])
     return (
       <div className='flex justify-center gap-10'>
           <ImagesDisplay id={id} images={images} right={"83vw"} left={"53.5vw"} imageInPreview={imageInPreview} setImageInPreview={setImageInPreview} />
