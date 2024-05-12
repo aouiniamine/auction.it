@@ -10,17 +10,19 @@ import React from 'react'
 export default async function page() {
     const headersList = headers()
     const id = headersList.get('current-path').split("/").pop()
-    console.log(id, 777)
     const {item} = await getItemById(id)
 
     return (
-        <ProductProvider currentBids={item.bids} currentComments={item.comments}>
+        <>
+            <Nav></Nav>
+            <ProductProvider currentBids={item.bids} currentComments={item.comments} id={id}>
 
-            <ContentWrapper>
-                <ProductHeadContent id={id} images={item.images} />
+                <ContentWrapper>
+                    <ProductHeadContent id={id} images={item.images} />
 
-                <h3 className='text-2xl'>{item?.title}</h3>
-            </ContentWrapper>
-        </ProductProvider>
+                    <h3 className='text-2xl'>{item?.title}</h3>
+                </ContentWrapper>
+            </ProductProvider>
+        </>
     )
 }

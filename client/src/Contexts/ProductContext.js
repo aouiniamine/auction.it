@@ -1,18 +1,17 @@
 "use client"
-const { createContext, useState } = require("react");
+
+import { socket } from "../utils/socket";
+
+const { createContext, useState, useEffect } = require("react");
 
 export const ProductContext = createContext()
 
-export const ProductProvider = ({children, currentBids, currentComments }) => {
+export const ProductProvider = ({children, currentBids, currentComments, id }) => {
     const [comments, setComments] = useState(currentBids)
-    const [bids, setBids] = useState(currentComments)
+    const [bids, setBids] = useState([])
     const [imageInPreview, setImageInPreview] = useState(0)
-    const addComment = (comment) =>{
-        setComments(prevState => {
-            const nextState = [...prevState]
-            nextState.push(comment)
-            return nextState
-        })
+    const sendComment = (comment) =>{
+        socket.emit("send:comment", {comment, id})
     }
     const addBid = (bid) => {
         setBids(prevState => {
@@ -21,8 +20,24 @@ export const ProductProvider = ({children, currentBids, currentComments }) => {
             return nextState
         })
     }
+    useEffect(()=>{
+        setComments(currentComments)
+        socket.on("connect", ()=>console.log("user connected"))
+        socket.on("recieve:comment-"+id, data =>{
+            setComments(prevState => {
+                const nextState = [...prevState]
+                nextState.push(data)
+                return nextState
+            })
+        })
+        return ()=>{
+            socket.off('connect')
+            socket.off("recieve:comment-"+id)
+        }
+    }, [])
+
     return (
-        <ProductContext.Provider value={{bids, comments, addBid, addComment, imageInPreview, setImageInPreview}}>
+        <ProductContext.Provider value={{bids, comments, addBid, sendComment, imageInPreview, setImageInPreview}}>
             {children}
         </ProductContext.Provider>
     )
