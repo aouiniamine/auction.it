@@ -1,11 +1,12 @@
 "use client"
 const { createContext, useState } = require("react");
 
-const ProductContext = createContext()
+export const ProductContext = createContext()
 
 export const ProductProvider = ({children, currentBids, currentComments }) => {
     const [comments, setComments] = useState(currentBids)
     const [bids, setBids] = useState(currentComments)
+    const [imageInPreview, setImageInPreview] = useState(0)
     const addComment = (comment) =>{
         setComments(prevState => {
             const nextState = [...prevState]
@@ -21,7 +22,7 @@ export const ProductProvider = ({children, currentBids, currentComments }) => {
         })
     }
     return (
-        <ProductContext.Provider value={{bids, comments, addBid, addComment}}>
+        <ProductContext.Provider value={{bids, comments, addBid, addComment, imageInPreview, setImageInPreview}}>
             {children}
         </ProductContext.Provider>
     )

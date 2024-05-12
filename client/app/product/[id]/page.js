@@ -1,4 +1,5 @@
 import { ProductProvider } from '@/src/Contexts/ProductContext'
+import ProductHeadContent from '@/src/components/Product/ProductHeadContent'
 import ContentWrapper from '@/src/components/atoms/ContentWrapper'
 import Nav from '@/src/components/atoms/Nav'
 import ImagesDisplay from '@/src/components/atoms/images/preview/ImagesDisplay'
@@ -16,9 +17,7 @@ export default async function page() {
         <ProductProvider currentBids={item.bids} currentComments={item.comments}>
 
             <ContentWrapper>
-                <div>
-                    {/* <ImagesDisplay /> */}
-                </div>
+                <ProductHeadContent id={id} images={item.images} />
 
                 <h3 className='text-2xl'>{item?.title}</h3>
             </ContentWrapper>

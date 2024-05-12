@@ -62,7 +62,7 @@ export default function page() {
     return item && (
         <ContentWrapper>
             <div className='w-10/12  ml-24 p-8 rounded-xl bg-white'>
-            <ImagesDisplay id={id} images={item.images} imageInPreview={imageInPreview} setImageInPreview={setImageInPreview}/>
+            <ImagesDisplay id={id} images={item.images} imageInPreview={imageInPreview} setImageInPreview={setImageInPreview} right={"70vw"} left={"70vw"}/>
                 <div className='flex justify-around mt-5'>
                     <div>
                         <p className='text-2xl border-b-2 border-b-neutral-400'>Title</p>

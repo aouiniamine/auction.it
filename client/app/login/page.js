@@ -17,7 +17,7 @@ export default function Login() {
         const {token} = response
         
         await storeToken(token)
-        router.push("/home")
+        router.push("/inAuction")
 
     } catch(err) {console.log(err)}
 

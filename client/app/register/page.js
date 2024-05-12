@@ -27,7 +27,7 @@ export default function Register() {
   }
   useEffect(()=>{
     const isLogged = getToken()
-    if(isLogged) router.push("/home")
+    if(isLogged) router.push("/inAuction")
 
   }, [])
   return (
