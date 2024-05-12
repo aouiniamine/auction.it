@@ -3,30 +3,41 @@ const express = require("express")
 const cors = require("cors")
 const app = express()
 const {urlencoded, json} = require("body-parser")
-
-const usersRouter = require("./src/routes/users")
-const itemsRouter = require("./src/routes/items")
-const categoriesRouter = require("./src/routes/categories")
-const adminRouter = require("./src/routes/admin")
-const filesRouter = require("./src/routes/files")
+const {Server} = require("socket.io")
+const { createServer } = require('node:http');
 
 const { initFolders } = require("./src/services/files")
+
+// websockets setup & config 
+const server = createServer(app)
+const socketConfig = {
+    cors: {
+        origin: '*',
+        allowedHeaders: ["authorization"]
+      }
+}
+const io = new Server(server, socketConfig)
 
 // parse incoming data
 app.use(urlencoded({ extended: false }))
 app.use(json())
 
 // unable cors
-app.use(cors())
+app.use(cors({
+    origin: process.env.CLIENT_URL
+}))
 
 // routes
-app.use("/api/user", usersRouter)
-app.use("/api/items", itemsRouter)
-app.use("/api/categories", categoriesRouter)
-app.use("/api/admin", adminRouter)
-app.use("/api/file", filesRouter)
+app.use("/api/user", require("./src/routes/users"))
+app.use("/api/items", require("./src/routes/items"))
+app.use("/api/categories", require("./src/routes/categories"))
+app.use("/api/admin", require("./src/routes/admin"))
+app.use("/api/file", require("./src/routes/files"))
 
 // init folder to prevent errors
 initFolders()
 
-app.listen(process.env.PORT, ()=>console.log("Server is runing on:", process.env.PORT))
+// websockets
+require("./src/websockets/index")(io)
+
+server.listen(process.env.PORT, ()=>console.log("Server is runing on:", process.env.PORT))
