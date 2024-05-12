@@ -28,7 +28,11 @@ const getItemById = async (id) => {
             
             },
             bids: true,
-            comments: true
+            comments: {
+                include: {
+                    user: true
+                }
+            }
         }
     })
 }
