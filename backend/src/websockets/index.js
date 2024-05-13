@@ -11,5 +11,6 @@ module.exports = async (io) => {
         }catch(err){ console.log("not logged client is connected.")}
         
         require("./comments")(io, socket, user)
+        require('./bids')(io, socket, user)
     });
 }
