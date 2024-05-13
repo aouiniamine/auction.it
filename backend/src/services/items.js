@@ -36,6 +36,15 @@ const getItemById = async (id) => {
                         }
                     }
                 }
+            },
+            bids: {
+                include: {
+                    user: {
+                        select: {
+                            username: true
+                        }
+                    },
+                }
             }
         }
     })
