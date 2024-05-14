@@ -38,6 +38,9 @@ app.use("/api/file", require("./src/routes/files"))
 // init folder to prevent errors
 initFolders()
 
+
+
+// uncomment this for the first time to setup an admin
 // const initAdmin = async()=>{
 //     const admin = await createAdmin("admin", "admin")
 //     console.log(admin, "is created")
