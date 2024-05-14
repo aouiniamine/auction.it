@@ -16,31 +16,31 @@ model admin {
 }
 
 model items {
-  id                           Int         @id @default(autoincrement())
-  user_id                      Int?
-  title                        String      @db.VarChar(50)
-  about                        String      @db.VarChar(500)
-  category_id                  Int?
-  winner_id                    Int?
-  state                        String      @default("pending") @map("_state") @db.VarChar(25)
-  starting_price               Int
-  end_bids_at                  DateTime?   @db.Timestamp(6)
-  created_at                   DateTime?   @db.Timestamp(6)
-  bids                         bids[]
-  comments                     comments[]
-  categories                   categories? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user_item   users?      @relation("user_item", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  winner_item users?      @relation("winner_item", fields: [winner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id             Int         @id @default(autoincrement())
+  user_id        Int?
+  title          String      @db.VarChar(50)
+  about          String      @db.VarChar(500)
+  category_id    Int?
+  winner_id      Int?
+  state          String      @default("pending") @map("_state") @db.VarChar(25)
+  starting_price Int
+  end_bids_at    DateTime?   @db.Timestamp(6)
+  created_at     DateTime?   @db.Timestamp(6)
+  bids           bids[]
+  comments       comments[]
+  categories     categories? @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user_item      users?      @relation("user_item", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  winner_item    users?      @relation("winner_item", fields: [winner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {
-  id                           Int        @id @default(autoincrement())
-  username                     String     @unique @db.VarChar(50)
-  email                        String     @unique @db.VarChar(50)
-  pass                         String     @db.VarChar
-  bids                         bids[]
-  comments                     comments[]
-  items   items[]    @relation("user_item")
+  id       Int        @id @default(autoincrement())
+  username String     @unique @db.VarChar(50)
+  email    String     @unique @db.VarChar(50)
+  pass     String     @db.VarChar
+  bids     bids[]
+  comments comments[]
+  items    items[]    @relation("user_item")
   itemsWon items[]    @relation("winner_item")
 }
 
@@ -50,8 +50,8 @@ model bids {
   item_id    Int?
   price      Decimal?  @db.Decimal(10, 2)
   created_at DateTime? @db.Timestamp(6)
-  item      items?    @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user      users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  item       items?    @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model comments {
@@ -60,8 +60,8 @@ model comments {
   item_id    Int?
   comment    String?   @db.VarChar(101)
   created_at DateTime? @db.Timestamp(6)
-  item      items?    @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  user      users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  item       items?    @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user       users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model categories {
