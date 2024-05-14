@@ -9,7 +9,6 @@ export default function ProductBids({startingPrice}) {
 
     const submitBid = (e) =>{
         e.preventDefault()
-        console.log(3)
         addBid(userBid)
     }
 
@@ -25,8 +24,8 @@ export default function ProductBids({startingPrice}) {
                 </div>
             )}
             { getToken() && (
-                <form onSubmit={submitBid} className='flex w-full gap-2 px-1 mt-2'>
-                    <input name='bid' type='number' min={Number(bids[bids.length-1].price)+5 || Number(startingPrice.toString())+5 }  onChange={(e) => setUserBid(e.target.value)} className='py-2 w-26 rounded px-1' placeholder='Make a Bid' />
+                <form onSubmit={submitBid} className='flex w-full gap-2 px-1 mt-5 h-12'>
+                    <input name='bid' type='number' min={bids.length ?Number( bids[bids.length-1].price)+5 : Number(startingPrice.toString())+5 }  onChange={(e) => setUserBid(e.target.value)} className='w-26 rounded px-1' placeholder='Make a Bid' />
                     <button className='w-28 bg-gray-400 rounded'>Submit</button>
                 </form>
             )}
