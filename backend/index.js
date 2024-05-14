@@ -7,6 +7,7 @@ const {Server} = require("socket.io")
 const { createServer } = require('node:http');
 
 const { initFolders } = require("./src/services/files")
+const { createAdmin } = require("./src/services/admin")
 
 // websockets setup & config 
 const server = createServer(app)
@@ -36,6 +37,13 @@ app.use("/api/file", require("./src/routes/files"))
 
 // init folder to prevent errors
 initFolders()
+
+// const initAdmin = async()=>{
+//     const admin = await createAdmin("admin", "admin")
+//     console.log(admin, "is created")
+// }
+// initAdmin()
+
 
 // websockets
 require("./src/websockets/index")(io)
