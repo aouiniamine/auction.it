@@ -17,8 +17,6 @@ COPY --chown=node:node . .
 
 RUN npm install
 
-RUN npx prisma db pull
-
 EXPOSE 5000
 
 CMD ["node", "index.js"]
