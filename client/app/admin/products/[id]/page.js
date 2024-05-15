@@ -105,7 +105,7 @@ export default function page() {
                 <p className='text-2xl border-b-2 border-b-neutral-400 mt-8'>Description</p>
                 <div className='flex justify-center mt-7'>
 
-                    <p className='w-9/12 text-pretty ml-2/12' contenteditable="true">{item.about}</p>
+                    <p className='w-9/12 text-pretty ml-2/12 break-words' contenteditable="true">{item.about}</p>
                 </div>
             </div>
         </ContentWrapper>
