@@ -1,12 +1,25 @@
 version: '0.9'
 services:
   auction.it-be:
+    container_name: auction.it-be
     build: ./backend
     env_file: ./backend/.env.production
     ports: 
-      - "5000:5000"
+      - "5000:5000" 
+    restart: always
   auction.it-fe:
+    container_name: auction.it-fe
     build: ./client
     env_file: ./client/.env.production
-    ports: 
+    ports:
       - "3000:3000"
+    restart: always
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    env_file:
+      - ./nginx/.env.production
+      - ./nginx/nginx.conf
+    ports:
+      - "8080:8080"
+    restart: always
