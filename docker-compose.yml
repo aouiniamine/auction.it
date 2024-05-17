@@ -1,0 +1,12 @@
+version: '0.9'
+services:
+  auction.it-be:
+    build: ./backend
+    env_file: ./backend/.env.production
+    ports: 
+      - "5000:5000"
+  auction.it-fe:
+    build: ./client
+    env_file: ./client/.env.production
+    ports: 
+      - "3000:3000"
